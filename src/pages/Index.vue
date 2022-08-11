@@ -97,7 +97,7 @@
 	import logo from '../assets/logo.svg'
 
 	export default {
-		name: 'HelloWorld',
+		name: 'Index',
 
 		data: () => ({
 			ecosystem: [
