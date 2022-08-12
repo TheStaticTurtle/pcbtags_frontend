@@ -1,94 +1,33 @@
 <template>
     <v-container>
         <v-row class="text-center">
-            <v-col cols="12">
-                <v-img
-                        :src="logo"
-                        class="my-3"
-                        contain
-                        height="200"
-                />
-            </v-col>
 
             <v-col class="mb-4">
                 <h1 class="display-2 font-weight-bold mb-3">
-                    Welcome to the Vuetify 3 Beta
+                    Theme
                 </h1>
 
-                <h4>Vite Preview</h4>
-
-                <p class="subheading font-weight-regular">
-                    For help and collaboration with other Vuetify developers,
-                    <br>please join our online
-                    <a
-                            href="https://community.vuetifyjs.com"
-                            target="_blank"
-                    >Discord Community</a>
-                </p>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="background">background</v-card>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="surface">surface</v-card>
+                <br>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="primary-darken-1">primary-darken-1</v-card>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="primary">primary</v-card>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="primary-lighten-1">primary-lighten-1</v-card>
+                <br>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="secondary-darken-1">secondary-darken-1</v-card>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="secondary">secondary</v-card>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="secondary-lighten-1">secondary-lighten-1</v-card>
+                <br>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="error">error</v-card>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="info">info</v-card>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="success">success</v-card>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="warning">warning</v-card>
+                <br>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="accent">accent</v-card>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="anchor">anchor</v-card>
+                <v-card style="height: 50px; width: 150px; display: inline-block" class="ma-2" color="muted">muted</v-card>
             </v-col>
 
-            <v-col
-                    class="mb-5"
-                    cols="12"
-            >
-                <h2 class="headline font-weight-bold mb-5">
-                    What's next?
-                </h2>
-
-                <v-row justify="center">
-                    <a
-                            v-for="(next, i) in whatsNext"
-                            :key="i"
-                            :href="next.href"
-                            class="subheading mx-3"
-                            target="_blank"
-                    >
-                        {{ next.text }}
-                    </a>
-                </v-row>
-            </v-col>
-
-            <v-col
-                    class="mb-5"
-                    cols="12"
-            >
-                <h2 class="headline font-weight-bold mb-5">
-                    Important Links
-                </h2>
-
-                <v-row justify="center">
-                    <a
-                            v-for="(link, i) in importantLinks"
-                            :key="i"
-                            :href="link.href"
-                            class="subheading mx-3"
-                            target="_blank"
-                    >
-                        {{ link.text }}
-                    </a>
-                </v-row>
-            </v-col>
-
-            <v-col
-                    class="mb-5"
-                    cols="12"
-            >
-                <h2 class="headline font-weight-bold mb-5">
-                    Ecosystem
-                </h2>
-
-                <v-row justify="center">
-                    <a
-                            v-for="(eco, i) in ecosystem"
-                            :key="i"
-                            :href="eco.href"
-                            class="subheading mx-3"
-                            target="_blank"
-                    >
-                        {{ eco.text }}
-                    </a>
-                </v-row>
-            </v-col>
         </v-row>
     </v-container>
 </template>

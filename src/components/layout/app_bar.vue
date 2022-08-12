@@ -40,13 +40,23 @@
 
 			return {
 				theme,
-				toggleTheme: () => theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+				toggleTheme: () => {
+					theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+					localStorage.setItem("enable_dark_mode", theme.global.current.value.dark);
+				}
 			}
 		},
 
         data: () => ({
             app_bar_bg,
         }),
+
+        beforeMount() {
+	        const dark_mode = localStorage.getItem("enable_dark_mode");
+	        if(dark_mode === "true") {
+		        this.toggleTheme()
+	        }
+        }
 	}
 </script>
 

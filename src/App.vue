@@ -9,7 +9,7 @@
             <router-view></router-view>
         </v-main>
 
-        <v-footer app absolute  style="font-size: 0.8em;" class="py-1">
+        <v-footer app absolute color="primary-darken-1"  style="font-size: 0.8em;" class="py-1">
             PcbTags - A simple keychain generator
             <v-spacer></v-spacer>
             <a href="https://github.com">Github</a>&nbsp;&nbsp;-&nbsp;&nbsp;<router-link to="/about">About</router-link>
@@ -38,12 +38,15 @@
 
 <style>
     .bg-primary {
-        background-color: var(--v-primary-base)
+        background-color: rgb(var(--v-theme-primary));
     }
     .bg-secondary {
-        background-color: var(--v-secondary-base)
+        background-color: rgb(var(--v-theme-secondary));
     }
     .text-muted {
-        color: var(--v-muted-base)
+        color: rgb(var(--v-theme-muted));
+    }
+    a {
+        color: rgb(var(--v-theme-anchor));
     }
 </style>

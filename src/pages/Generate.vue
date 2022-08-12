@@ -3,7 +3,7 @@
         <v-row>
             <v-col cols="12" sm="6" md="5" >
                 <v-card class="mb-3">
-                    <v-card-title class="text-center bg-secondary justify-center pa-0 py-1">
+                    <v-card-title class="text-center bg-primary justify-center pa-0 py-1">
                         <h3 class="font-weight-light">Settings</h3>
                     </v-card-title>
                     <div class="pa-3">
@@ -40,17 +40,16 @@
                                     label="Format"
                                     variant="outlined"
                                     hide-details
-                                    class="mb-4"
+                                    class="mb-5"
                                     density="compact"
                                     @update:menu="generator_select_update"
                             ></v-select>
-                            <div v-for="option in selected_generator.options" :key="option.key">
-                                <v-text-field v-model="generator_options[option.key]" v-if="option.type === 'String'" density="compact" :label="option.text" variant="outlined" hide-details ></v-text-field>
-                                <v-checkbox v-model="generator_options[option.key]" v-if="option.type === 'Boolean'" density="compact" :label="option.text" hide-details ></v-checkbox>
-                            </div>
+                            <template v-for="option in selected_generator.options" :key="option.key">
+                                <v-text-field v-model="generator_options[option.key]" v-if="option.type === 'String'" density="compact" :label="option.text" class="mb-2" variant="outlined" hide-details></v-text-field>
+                                <v-checkbox v-model="generator_options[option.key]" v-if="option.type === 'Boolean'" density="compact" :label="option.text" hide-details></v-checkbox>
+                            </template>
 
-
-                            <v-btn block :disabled="tag_generating || generators.length === 0" :loading="tag_generating" color="secondary" @click="generate">Generate</v-btn>
+                            <v-btn block :disabled="tag_generating || generators.length === 0" :loading="tag_generating" color="accent" @click="generate">Generate</v-btn>
                         </div>
                         <div v-else>
                             <h4>Choose a generator</h4>
@@ -71,10 +70,10 @@
             </v-col>
             <v-col cols="12" sm="6"  md="7" >
                 <v-card v-if="tag_generated" class="mb-3">
-                    <v-card-title class="text-center bg-secondary justify-center pa-0 pt-1">
+                    <v-card-title class="text-center bg-primary justify-center pa-0 pt-1">
                         <h3 class="font-weight-light">Preview</h3>
                     </v-card-title>
-                    <v-tabs grow v-model="preview_tab" background-color="secondary" dark density="compact">
+                    <v-tabs grow v-model="preview_tab" background-color="primary" dark density="compact">
                         <v-tab value="toplayer">Top Layer</v-tab>
                         <v-tab value="bottomlayer">Bottom Layer</v-tab>
 <!--                        <v-tab value="3d">3D Model</v-tab>-->
@@ -105,10 +104,10 @@
                 </v-card>
 
                 <v-card v-if="tag_generated" class="mb-3">
-                    <v-card-title class="text-center bg-secondary justify-center pa-0 pt-1">
+                    <v-card-title class="text-center bg-primary justify-center pa-0 pt-1">
                         <h3 class="font-weight-light">Export</h3>
                     </v-card-title>
-                    <v-tabs v-model="export_tab" grow="" background-color="secondary" dark density="compact">
+                    <v-tabs v-model="export_tab" grow="" background-color="primary" dark density="compact">
                         <v-tab value="gerbers">Gerber archive</v-tab>
                         <v-tab value="kicad">Kicad</v-tab>
                     </v-tabs>
@@ -123,14 +122,14 @@
                                         <li><a href="https://oshpark.com/">OSHPARK</a></li>
                                     </ul>
                                 </v-card-text>
-                                <v-btn @click="download_gerber_archive" block color="secondary">Download</v-btn>
+                                <v-btn @click="download_gerber_archive" block color="accent">Download</v-btn>
                             </v-card>
                         </v-window-item>
                         <v-window-item value="kicad">
                             <v-card class="pa-3">
                                 The is the file you need if you want to modify the board yourself before ordering (like adding leds & other components). Raw content of ".kicad_pcb" file:
                                 <v-textarea hide-details class="mb-3" readonly label="Kicad PCB" v-model="kicad_pcb_raw"></v-textarea>
-                                <v-btn @click="download_kicad_raw" block color="secondary">Download</v-btn>
+                                <v-btn @click="download_kicad_raw" block color="accent">Download</v-btn>
                             </v-card>
                         </v-window-item>
                     </v-window>
@@ -143,7 +142,7 @@
                                 Debug information
                             </v-expansion-panel-title>
                             <v-expansion-panel-text class="child-no-padding">
-                                <v-tabs v-model="debug_tab" grow="" background-color="#e2e2e2" density="compact">
+                                <v-tabs v-model="debug_tab" grow="" class="bg-primary" density="compact">
                                     <v-tab value="profiler">Profiler</v-tab>
                                     <v-tab value="files">File sizes</v-tab>
                                 </v-tabs>
@@ -183,7 +182,7 @@
                 </v-card>
 
                 <v-card v-else class="mb-3">
-                    <v-card-title class="text-center bg-secondary justify-center pa-0 py-1">
+                    <v-card-title class="text-center bg-primary justify-center pa-0 py-1">
                         <h3 class="font-weight-light">Help</h3>
                     </v-card-title>
                     <div class="pa-3">
@@ -386,7 +385,7 @@
     }
     .debug_table th {
         text-align: center;
-        background: rgb(var(--v-theme-secondary)) !important;
+        background: rgb(var(--v-theme-accent)) !important;
         color: white;
     }
     .debug_table tr:nth-child(even){
