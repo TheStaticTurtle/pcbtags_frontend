@@ -50,7 +50,7 @@
                             </div>
 
 
-                            <v-btn block :disabled="tag_generating" :loading="tag_generating" color="secondary" @click="generate">Generate</v-btn>
+                            <v-btn block :disabled="tag_generating || generators.length === 0" :loading="tag_generating" color="secondary" @click="generate">Generate</v-btn>
                         </div>
                         <div v-else>
                             <h4>Choose a generator</h4>
@@ -115,22 +115,20 @@
                     <v-window v-model="export_tab" >
                         <v-window-item value="gerbers">
                             <v-card class="pa-3">
-                                <table class="debug_table mb-3">
-                                    <tr>
-                                        <th>Filename</th>
-                                        <th>Uncompressed size</th>
-                                    </tr>
-                                    <tr v-for="entry in gerber_archive_entries" :key="entry.filename">
-                                        <td>{{entry.filename}}</td>
-                                        <td>{{entry.uncompressedSize}} bytes</td>
-                                    </tr>
-                                </table>
+                                The is the file you need if you want to get the board fabricated, here are a few links fabrication house that I used before (not affiliated) (you do no need a stencil):
+                                <v-card-text>
+                                    <ul>
+                                        <li><a href="https://support.jlcpcb.com/article/21-how-do-i-place-an-order">JLCPCB</a> (don't forget to request no order number on the silk screen)</li>
+                                        <li><a href="https://www.pcbway.com/helpcenter/Findproducts/How_do_I_place_an_order_.html">PCBWAY</a></li>
+                                        <li><a href="https://oshpark.com/">OSHPARK</a></li>
+                                    </ul>
+                                </v-card-text>
                                 <v-btn @click="download_gerber_archive" block color="secondary">Download</v-btn>
                             </v-card>
                         </v-window-item>
                         <v-window-item value="kicad">
                             <v-card class="pa-3">
-                                <h4>Content of ".kicad_pcb" file: </h4>
+                                The is the file you need if you want to modify the board yourself before ordering (like adding leds & other components). Raw content of ".kicad_pcb" file:
                                 <v-textarea hide-details class="mb-3" readonly label="Kicad PCB" v-model="kicad_pcb_raw"></v-textarea>
                                 <v-btn @click="download_kicad_raw" block color="secondary">Download</v-btn>
                             </v-card>
@@ -199,8 +197,7 @@
 
 <script>
 	import axios from 'axios'
-
-	import { Data64URIReader, ZipReader, } from "@zip.js/zip.js";
+	import Swal from 'sweetalert2'
 
 	function bytesToSize(bytes, decimals = 2) {
 		if (bytes === 0) return '0 bytes';
@@ -214,7 +211,7 @@
 		return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 	}
 
-	function save_text(filename, data, mime) {
+	function download_text(filename, data, mime) {
 		const blob = new Blob([data], {type: mime});
 		if(window.navigator.msSaveOrOpenBlob) {
 			window.navigator.msSaveBlob(blob, filename);
@@ -228,8 +225,7 @@
 			document.body.removeChild(elem);
 		}
 	}
-
-	function downloadDataURI(uri, filename) {
+	function download_data_uri(uri, filename) {
 		fetch(uri)
 			.then(response => response.blob())
 			.then(blob => {
@@ -266,17 +262,17 @@
 			selected_canvas: null,
             generator_options: {},
 
+			tag_generating: false,
+			tag_generated: false,
+
 			profiler_results: {events:[], durations:[]},
 			debug_tab: null,
             preview_tab: null,
 			export_tab: null,
-			tag_generating: false,
-			tag_generated: false,
 			kicad_pcb_raw: "",
 			svg_top_layer_render: "",
 			svg_bottom_layer_render: "",
 			gerber_archive_b64: "",
-			gerber_archive_entries: []
 		}),
 
 		beforeMount() {
@@ -334,24 +330,36 @@
 						t.kicad_pcb_raw = generate_response.data.data.kicad[".kicad_pcb"]
 						t.gerber_archive_b64 = generate_response.data.data.gerber.archive
 
-						const zipFileReader = new Data64URIReader("data:application/x-zip-compressed;base64,"+t.gerber_archive_b64);
-						const zipReader = new ZipReader(zipFileReader);
-						zipReader.getEntries().then((gerber_archive_entries) => {
-							t.gerber_archive_entries = gerber_archive_entries
+						t.tag_generating = false
+						t.tag_generated = true
+					}).catch((err) => {
+						if(err.response.data.hasOwnProperty("detail")) {
+							Swal.fire({
+								title: 'Uh Oh, an error occurred!',
+								text: err.response.data.detail,
+								icon: 'error',
+								confirmButtonText: 'Close'
+							})
+                        } else {
+							Swal.fire({
+								title: 'Uh Oh, an error occurred!',
+								text: "Unfortunately, there is no details for this error. Try again later",
+								icon: 'error',
+								confirmButtonText: 'Close'
+							})
+                        }
+						t.tag_generating = false
 
-							t.tag_generating = false
-							t.tag_generated = true
-                        })
-					});
+                    });
                 }
             },
 
 			download_kicad_raw() {
-				save_text("tag.kicad_pcb", this.kicad_pcb_raw, "text/plain")
+				download_text("tag.kicad_pcb", this.kicad_pcb_raw, "text/plain")
             },
 
 			download_gerber_archive() {
-				downloadDataURI("data:application/x-zip-compressed;base64,"+this.gerber_archive_b64, "tag.gerber.zip")
+				download_data_uri("data:application/x-zip-compressed;base64,"+this.gerber_archive_b64, "tag.gerber.zip")
             }
         }
 	}
