@@ -1,31 +1,25 @@
 <template>
     <v-app>
-<!--        <v-navigation-drawer app>-->
-<!--        </v-navigation-drawer>-->
-
         <app_bar/>
 
         <v-main>
             <router-view></router-view>
         </v-main>
 
-        <v-footer app absolute color="primary-darken-1"  style="font-size: 0.8em;" class="py-1">
-            PcbTags - A simple keychain generator
-            <v-spacer></v-spacer>
-            <router-link to="/about">About</router-link>
-
-        </v-footer>
+        <app_footer></app_footer>
     </v-app>
 </template>
 
 <script>
 	import Index from './pages/Index.vue'
 	import App_bar from "./components/layout/app_bar.vue";
+	import App_footer from "./components/layout/app_footer.vue";
 
 	export default {
 		name: 'App',
 
 		components: {
+			App_footer,
 			App_bar,
 			Index,
 		},
@@ -37,6 +31,10 @@
 </script>
 
 <style>
+    .child-no-padding > div {
+        padding: 0;
+    }
+
     .bg-primary {
         background-color: rgb(var(--v-theme-primary));
     }
