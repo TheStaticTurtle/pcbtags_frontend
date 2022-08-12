@@ -46,6 +46,9 @@
     .text-muted {
         color: rgb(var(--v-theme-muted));
     }
+    .text-small {
+        font-size: 0.85em;
+    }
     a {
         color: rgb(var(--v-theme-anchor));
     }
