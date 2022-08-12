@@ -8,6 +8,9 @@ export default defineConfig({
 		vue(),
 		vuetify({ autoImport: true }),
 	],
+	define: {
+		'__APP_VERSION__': JSON.stringify(process.env.npm_package_version),
+	},
 	server: {
 		proxy: {
 			'/api': {

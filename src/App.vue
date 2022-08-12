@@ -12,7 +12,7 @@
         <v-footer app absolute color="primary-darken-1"  style="font-size: 0.8em;" class="py-1">
             PcbTags - A simple keychain generator
             <v-spacer></v-spacer>
-            <a href="https://github.com">Github</a>&nbsp;&nbsp;-&nbsp;&nbsp;<router-link to="/about">About</router-link>
+            <router-link to="/about">About</router-link>
 
         </v-footer>
     </v-app>
