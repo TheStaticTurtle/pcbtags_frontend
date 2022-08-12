@@ -117,18 +117,36 @@
 						t.tag_generated = true
 					}).catch((err) => {
 						if(err.response.data.hasOwnProperty("detail")) {
+							let html = `<span class="error-title">${err.response.data.detail}</span>`
+							if(err.response.data.hasOwnProperty("real_error")) {
+								html = `<span class="error-title">${err.response.data.real_error}</span>`
+							}
+							if(err.response.data.hasOwnProperty("traceback")) {
+								const traceback = err.response.data.traceback.replaceAll("\n","<br>").replaceAll(" ","&nbsp")
+								html += `<span class="error-traceback">${traceback}</span>`
+							}
+
 							Swal.fire({
 								title: 'Uh Oh, an error occurred!',
-								text: err.response.data.detail,
+								html: `<div class="error-alert">${html}</div>`,
 								icon: 'error',
-								confirmButtonText: 'Close'
+								width: 800,
+								padding: '8px',
+								showCloseButton: true,
 							})
                         } else {
+							let html = `<span class="error-title">Unfortunately, there is no details for this error. Try again later</span>`
+							if(err.response.data.hasOwnProperty("traceback")) {
+								const traceback = err.response.data.traceback.replaceAll("\n","<br>").replaceAll(" ","&nbsp")
+								html += `<span class="error-traceback">${traceback}</span>`
+							}
 							Swal.fire({
 								title: 'Uh Oh, an error occurred!',
-								text: "Unfortunately, there is no details for this error. Try again later",
+								html: `<div class="error-alert">${html}</div>`,
 								icon: 'error',
-								confirmButtonText: 'Close'
+								width: 800,
+								padding: '8px',
+								showCloseButton: true,
 							})
                         }
 						t.tag_generating = false
@@ -142,5 +160,46 @@
 
 <style>
 
+.error-alert {
 
+}
+
+.error-alert .error-title {
+    display: block;
+    font-size: 0.95em;
+}
+.error-alert .error-traceback {
+    display: block;
+    padding: 8px;
+    margin-top: 8px;
+    border-radius: 4px;
+
+    font-family: monospace;
+    font-size: 0.75em;
+    text-align: left;
+
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #5a5a5a #adadad;
+
+    white-space: nowrap;
+
+    background-color: #242424;
+    color: #e82121;
+
+ }
+
+.error-alert .error-traceback::-webkit-scrollbar {
+    height: 8px;
+}
+
+.error-alert .error-traceback::-webkit-scrollbar-track {
+    background: #5a5a5a;
+    border-radius: 4px;
+}
+
+.error-alert .error-traceback::-webkit-scrollbar-thumb {
+    background-color: #adadad;
+    border-radius: 4px;
+}
 </style>
