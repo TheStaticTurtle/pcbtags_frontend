@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-row class="text-center">
-            <v-col class="mb-4 mx-16">
+            <v-col class="mb-4 mx-8">
                 <h1 class="display-2 font-weight-bold mb-3">
                     PCBTAGS
                 </h1>
@@ -13,7 +13,7 @@
                 </p>
 
                 <p class="subheading font-weight-regular mb-5">
-                    PCBTAGS server and frontend are licensed under GPLv3 allowing you to extend the capabilities of the projet. You can find both repositories here:
+                    PCBTAGS server and frontend are licensed under GPLv3 allowing you to extend the capabilities of the projet. You can find the repositories here:
                 </p>
 
                 <opengraph_git_images/>
@@ -32,7 +32,8 @@
                 </h1>
 
                 <p class="subheading font-weight-regular">
-                    I'm a software developer, system administrator and enthusiast of many other things. You can find out more about me on my <a href="https://thestaticturtle.fr" target="_blank">website</a> or <a href="https://blog.thestaticturtle.fr" target="_blank">blog</a>
+                    I'm a software developer, system administrator and enthusiast of many other things. <br>
+                    You can find out more about me on my <a href="https://thestaticturtle.fr" target="_blank">website</a> or <a href="https://blog.thestaticturtle.fr" target="_blank">blog</a>
                 </p>
             </v-col>
         </v-row>

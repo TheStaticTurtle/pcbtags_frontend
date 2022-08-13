@@ -1,17 +1,24 @@
 <template>
-    <v-container>
+    <v-container fluid>
         <v-row>
-            <v-col>
+            <v-col cols="12" sm="4" md="4" >
                 <v-card>
                     <a href="https://github.com/TheStaticTurtle/pcbtags_frontend" target="_blank">
                         <v-img :src="frontend_opengraph"></v-img>
                     </a>
                 </v-card>
             </v-col>
-            <v-col>
+            <v-col cols="12" sm="4" md="4">
                 <v-card>
                     <a href="https://github.com/TheStaticTurtle/pcbtags_server" target="_blank">
                         <v-img :src="backend_opengraph"></v-img>
+                    </a>
+                </v-card>
+            </v-col>
+            <v-col cols="12" sm="4" md="4">
+                <v-card>
+                    <a href="https://github.com/TheStaticTurtle/pcbtags_docker" target="_blank">
+                        <v-img :src="docker_opengraph"></v-img>
                     </a>
                 </v-card>
             </v-col>
@@ -43,7 +50,8 @@
 
 		data: () => ({
 			frontend_opengraph: "https://opengraph.githubassets.com/"+makeid(50)+"/TheStaticTurtle/pcbtags_frontend",
-			backend_opengraph: "https://opengraph.githubassets.com/"+makeid(50)+"/TheStaticTurtle/pcbtags_server"
+			backend_opengraph: "https://opengraph.githubassets.com/"+makeid(50)+"/TheStaticTurtle/pcbtags_server",
+			docker_opengraph: "https://opengraph.githubassets.com/"+makeid(50)+"/TheStaticTurtle/pcbtags_docker",
 		}),
 	}
 </script>
