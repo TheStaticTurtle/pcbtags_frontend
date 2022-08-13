@@ -7,15 +7,15 @@
 <!--            <v-img gradient="to top right, rgba(220, 80, 14, 1), rgba(255, 150, 70, 1)"></v-img>-->
 <!--        </template>-->
 
-<!--        <template v-slot:prepend>-->
-<!--            <v-app-bar-nav-icon></v-app-bar-nav-icon>-->
-<!--        </template>-->
+        <template v-slot:prepend>
+        </template>
 
-        <v-app-bar-title>
-            <v-btn class="font-weight-light" style="font-size: 1.2em" variant="text" size="x-large" to="/">
-                PcbTags
-            </v-btn>
-        </v-app-bar-title>
+        <div class="d-flex mx-5 align-center" >
+            <v-icon size="x-large" class="mr-4">mdi-tag-text</v-icon>
+            <router-link class="font-weight-light text-decoration-none pa-0 ma-0" style="font-size: 1.75em; color: white" variant="text" to="/">
+                PCBTAGS
+            </router-link>
+        </div>
 
         <v-spacer></v-spacer>
 
@@ -29,8 +29,6 @@
 
 <script>
 	import { useTheme } from 'vuetify'
-    import app_bar_bg from "../../assets/pcb.jpg"
-    import logo from "../../assets/logo.svg";
 
 	export default {
 		name: "app_bar",
@@ -48,7 +46,6 @@
 		},
 
         data: () => ({
-            app_bar_bg,
         }),
 
         beforeMount() {
