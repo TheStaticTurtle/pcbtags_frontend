@@ -41,8 +41,15 @@
 		return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 	}
 
+	import { useMeta } from 'vue-meta'
 
 	export default {
+		setup () {
+			useMeta({
+				title: 'Generate',
+			})
+		},
+
 		name: 'Generate',
 		components: {
 			Generate_config,

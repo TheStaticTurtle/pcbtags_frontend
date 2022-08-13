@@ -43,7 +43,14 @@
 	import axios from 'axios'
 	import Opengraph_git_images from "../components/about/opengraph_git_images.vue";
 
+	import { useMeta } from 'vue-meta'
+
 	export default {
+		setup () {
+			useMeta({
+				title: 'About',
+			})
+		},
 		name: 'About',
 		components: {Opengraph_git_images},
 		beforeMount() {

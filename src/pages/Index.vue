@@ -35,7 +35,14 @@
 <script>
 	import logo from '../assets/logo.svg'
 
+	import { useMeta } from 'vue-meta'
+
 	export default {
+		setup () {
+			useMeta({
+				title: 'Home',
+			})
+		},
 		name: 'Index',
 
 		data: () => ({

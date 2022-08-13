@@ -1,4 +1,7 @@
 <template>
+    <metainfo>
+        <template v-slot:title="{ content }">{{ content ? `${content} | PCBTAGS` : `PCBTAGS` }}</template>
+    </metainfo>
     <v-app>
         <app_bar/>
 
@@ -10,13 +13,22 @@
     </v-app>
 </template>
 
+
 <script>
+	import { useMeta } from 'vue-meta'
 	import Index from './pages/Index.vue'
 	import App_bar from "./components/layout/app_bar.vue";
 	import App_footer from "./components/layout/app_footer.vue";
 
 	export default {
 		name: 'App',
+
+		setup () {
+			useMeta({
+				title: '',
+				htmlAttrs: { lang: 'en', amp: true }
+			})
+		},
 
 		components: {
 			App_footer,
