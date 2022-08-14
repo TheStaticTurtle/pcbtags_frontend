@@ -45,7 +45,7 @@
                     <v-icon size="small">mdi-tape-measure</v-icon> Maximum size of this format: {{selected_canvas_size.width}}mm x {{selected_canvas_size.height}}mm
                 </p>
                 <template v-for="option in selected_generator.options" :key="option.key">
-                    <v-text-field v-model="generator_options[option.key]" v-if="option.type === 'String'" density="compact" :label="option.text" class="mb-2" variant="outlined" hide-details></v-text-field>
+                    <v-text-field v-model="generator_options[option.key]" v-if="option.type === 'String'" density="compact" :label="option.text" class="mb-4" variant="outlined" hide-details></v-text-field>
                     <v-checkbox v-model="generator_options[option.key]" v-if="option.type === 'Boolean'" density="compact" :label="option.text" hide-details></v-checkbox>
                     <p v-if="option.help" class="text-muted text-small">
                         <v-icon size="small">mdi-information</v-icon> {{option.help}}
@@ -74,8 +74,8 @@
 		computed: {
 			selected_canvas_size() {
 				const s = this.selected_generator.available_canvases.filter(x => x.key == this.selected_canvas)[0].size_max
-				s.height = Math.round(s.height)
-				s.width = Math.round(s.width)
+				s.height = Math.round(s.height) || s.height
+				s.width = Math.round(s.width) || s.width
 				return s
 			}
 		},

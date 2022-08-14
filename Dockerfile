@@ -1,4 +1,5 @@
 FROM node:lts-alpine
+MAINTAINER TheStaticTurtle <samuel@thestaticturtle.fr>
 
 # set the working direction
 WORKDIR /app
