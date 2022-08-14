@@ -6,8 +6,8 @@
         <div class="pa-3">
             To generate a tag, you first need to decide what you want to generate there are a few options available:
             <ul v-if="!loading_generators" class="ml-8 my-2">
-                <li v-for="generator in generators" :key="generator.value.key">
-                    {{generator.value.name}}: {{generator.value.short_desc}}
+                <li v-for="generator in generators" :key="generator.key">
+                    {{generator.name}}: {{generator.short_desc}}
                 </li>
             </ul>
             <ul v-else class="ml-8 my-2">
@@ -51,9 +51,7 @@
 				method: 'get',
 				url: "/api/generators"
 			}).then(function (generators_response) {
-				t.generators = generators_response.data.data.map(x => {
-					return {text: x.name, value: x}
-				})
+				t.generators = generators_response.data.generators
 				t.loading_generators = false
 			});
 		},

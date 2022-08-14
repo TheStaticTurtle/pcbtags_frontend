@@ -37,12 +37,15 @@
                         label="Format"
                         variant="outlined"
                         hide-details
-                        class="mb-2"
+                        class="mb-1"
                         density="compact"
                         @update:menu="generator_select_update"
                 ></v-select>
+                <p class="text-muted text-small">
+                    <v-icon size="small">mdi-tape-measure</v-icon> Maximum size of this format: {{selected_canvas_max_size.width}}mm x {{selected_canvas_max_size.height}}mm
+                </p>
                 <p class="text-muted text-small mb-4">
-                    <v-icon size="small">mdi-tape-measure</v-icon> Maximum size of this format: {{selected_canvas_size.width}}mm x {{selected_canvas_size.height}}mm
+                    <v-icon size="small">mdi-tape-measure</v-icon> Minimum size of this format: {{selected_canvas_min_size.width}}mm x {{selected_canvas_min_size.height}}mm
                 </p>
                 <template v-for="option in selected_generator.options" :key="option.key">
                     <v-text-field v-model="generator_options[option.key]" v-if="option.type === 'String'" density="compact" :label="option.text" class="mb-4" variant="outlined" hide-details></v-text-field>
@@ -72,10 +75,16 @@
 		name: "generate_config",
 
 		computed: {
-			selected_canvas_size() {
+			selected_canvas_max_size() {
 				const s = this.selected_generator.available_canvases.filter(x => x.key == this.selected_canvas)[0].size_max
-				s.height = Math.round(s.height) || s.height
-				s.width = Math.round(s.width) || s.width
+				s.height = Math.round(s.height) || "variable "
+				s.width = Math.round(s.width) || "variable "
+				return s
+			},
+			selected_canvas_min_size() {
+				const s = this.selected_generator.available_canvases.filter(x => x.key == this.selected_canvas)[0].size_min
+				s.height = Math.round(s.height) || "variable "
+				s.width = Math.round(s.width) || "variable "
 				return s
 			}
 		},
@@ -127,14 +136,14 @@
 				method: 'get',
 				url: "/api/pcb_colors"
 			}).then(function (pcb_colors_response) {
-				t.pcb_colors = pcb_colors_response.data.data
+				t.pcb_colors = pcb_colors_response.data.colors
 				t.selected_pcb_color = "blue_enig"
 
 				axios({
 					method: 'get',
 					url: "/api/generators"
 				}).then(function (generators_response) {
-					t.generators = generators_response.data.data.map(x => {
+					t.generators = generators_response.data.generators.map(x => {
 						return {text: x.name, value: x}
 					})
 					t.selected_generator = t.generators[0].value

@@ -60,7 +60,7 @@
 				method: 'get',
 				url: "/api/version"
 			}).then(function (response) {
-				t.backend_version = response.data.data
+				t.backend_version = response.data.version
 			});
 		},
 

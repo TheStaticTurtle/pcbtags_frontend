@@ -85,7 +85,7 @@
             },
             export_data: {
 	            kicad_pcb: "",
-	            gerber_archive_b64: "",
+	            gerber_archive: "",
             }
 		}),
 
@@ -104,20 +104,20 @@
                         }
 					}).then(function (generate_response) {
 						t.preview_data = {
-							gerber: generate_response.data.data.gerber.render
+							gerber: generate_response.data.result.gerber.render
                         }
 						t.debug_data = {
-							profiler: generate_response.data.data.profiler,
+							profiler: generate_response.data.result.profiler,
                             file_sizes: [
-	                            {name: "top_layer.svg", size: bytesToSize(generate_response.data.data.gerber.render.top.length)},
-	                            {name: "bottom_layer.svg", size: bytesToSize(generate_response.data.data.gerber.render.bottom.length)},
-	                            {name: "tag.kicad_pcb", size: bytesToSize(generate_response.data.data.kicad[".kicad_pcb"].length)},
-	                            {name: "tag.zip.b64", size: bytesToSize(generate_response.data.data.gerber.archive.length)},
+	                            {name: "top_layer.svg", size: bytesToSize(generate_response.data.result.gerber.render.top.length)},
+	                            {name: "bottom_layer.svg", size: bytesToSize(generate_response.data.result.gerber.render.bottom.length)},
+	                            {name: "tag-gerber.zip.b64", size: bytesToSize(generate_response.data.result.gerber.archive.length)},
+	                            {name: "tag.kicad_pcb", size: bytesToSize(generate_response.data.result.kicad.kicad_pcb.length)},
                             ]
 						}
 						t.export_data = {
-							kicad_pcb: generate_response.data.data.kicad[".kicad_pcb"],
-							gerber_archive: generate_response.data.data.gerber.archive,
+							kicad_pcb: generate_response.data.result.kicad.kicad_pcb,
+							gerber_archive: generate_response.data.result.gerber.archive,
 						}
 
 						t.tag_generating = false
