@@ -79,7 +79,7 @@
             debug_data: {
 				profiler: {
 					events: [],
-                    durations: []
+                    duration: 0
                 },
 	            file_sizes: []
             },
